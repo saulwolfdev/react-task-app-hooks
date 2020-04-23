@@ -17,7 +17,26 @@ const App = () => {
 	]);
 
 	const [showCompleted, setshowCompleted] = useState(true);
-
+ useEffect(()=>{
+	  
+	let data=localStorage.getItem("tasks");
+    if(data!=null){
+		setTaskItems(JSON.parse(data))
+	}else{
+		SetUserName("Saul Wolf")
+		setTaskItems([
+      { name: "Task One Example", done: false },
+      { name: "Task Two Example", done: false },
+      { name: "Task Tree Example", done: true },
+      { name: "Task Four Example", done: true },
+    ]);
+	}
+	
+ },[]);
+ useEffect(()=>{
+	 localStorage.setItem("tasks",JSON.stringify(taskItems))
+ },[taskItems])
+	
 	const createNewTaskApp = taskName => {
 		if (!taskItems.find(t => t.name === taskName)) {
 			setTaskItems([...taskItems, { name: taskName, done: false }])
